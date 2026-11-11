@@ -1,40 +1,40 @@
-﻿# Saqib Ansari â€” Day 06 Profile Card
+﻿
+@'
+# Mohammad Saqib Ansari - Day 06 Profile Card
 
 A responsive, single-file profile page demonstrating the CSS Box Model, Display, Overflow, and Positioning.
 
 ## Features
 
-- Responsive profile hero with decorative layered shapes using `position` and `z-index`.
+- Responsive profile hero with decorative layered shapes using position and z-index.
 - Three card styles: light, dark, and accent.
 - Sticky navigation bar and fixed back-to-top button.
-- Bounded notes panel using `overflow: auto`.
+- Bounded notes panel using overflow: auto.
 - Horizontal tile strip whose overflow stays inside its panel.
 - Annotated CSS box-model illustration: content, padding, border, and margin.
 - Responsive tablet and mobile layouts.
-- Global `box-sizing: border-box`.
+- Global box-sizing: border-box.
 
-## Run locally
+## Run Locally
 
-Open `index.html` in a browser, or use the Live Server extension in VS Code.
+Open index.html in a browser, or use the Live Server extension in VS Code.
 
 ## Screenshots
 
-Add your own screenshots in the `Screenshots/` folder after testing the page:
+### Profile Card
 
-- `Screenshots/profile-desktop.png`
-- `Screenshots/profile-mobile.png`
-- `Screenshots/box-model.png`
-- `Screenshots/devtools-box-model.png`
+![Profile Card](Screenshots/Profile%20Card.png)
 
-## DevTools check
+## DevTools Verification
 
 1. Open the page in Chrome.
-2. Right-click the profile hero and choose **Inspect**.
-3. In the Elements panel, select an element and inspect its Box Model diagram in the Computed panel.
-4. Take your own screenshot showing the selected element and its box model.
-5. Test the page at desktop and mobile widths.
+2. Right-click the profile hero and choose Inspect.
+3. In the Elements panel, select an element.
+4. Open the Computed panel and inspect its Box Model diagram.
+5. Capture your own screenshot showing the selected element and its Box Model.
+6. Test the page at desktop and mobile widths.
 
 ## About
 
 A practice project by Mohammad Saqib Ansari for the Day 06 web development assignment.
-
+'@ | Set-Content -Path README.md -Encoding utf8
