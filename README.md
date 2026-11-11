@@ -1,4 +1,4 @@
-# Saqib Ansari — Day 06 Profile Card
+﻿# Saqib Ansari â€” Day 06 Profile Card
 
 A responsive, single-file profile page demonstrating the CSS Box Model, Display, Overflow, and Positioning.
 
@@ -36,4 +36,5 @@ Add your own screenshots in the `Screenshots/` folder after testing the page:
 
 ## About
 
-A practice project by Saqib Ansari for the Day 06 web development assignment.
+A practice project by Mohammad Saqib Ansari for the Day 06 web development assignment.
+
