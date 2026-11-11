@@ -24,6 +24,10 @@ Open `index.html` in a browser, or use the Live Server extension in VS Code.
 
 ![Profile Card](Screenshots/Profile%20Card.png)
 
+### Box Model Verification
+
+![Box Model](Screenshots/Box%20Model.png)
+
 ## DevTools Verification
 
 1. Open the page in Chrome.
