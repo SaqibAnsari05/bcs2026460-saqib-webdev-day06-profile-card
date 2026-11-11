@@ -1,5 +1,4 @@
 ﻿
-@'
 # Mohammad Saqib Ansari - Day 06 Profile Card
 
 A responsive, single-file profile page demonstrating the CSS Box Model, Display, Overflow, and Positioning.
@@ -17,7 +16,7 @@ A responsive, single-file profile page demonstrating the CSS Box Model, Display,
 
 ## Run Locally
 
-Open index.html in a browser, or use the Live Server extension in VS Code.
+Open `index.html` in a browser, or use the Live Server extension in VS Code.
 
 ## Screenshots
 
@@ -37,4 +36,3 @@ Open index.html in a browser, or use the Live Server extension in VS Code.
 ## About
 
 A practice project by Mohammad Saqib Ansari for the Day 06 web development assignment.
-'@ | Set-Content -Path README.md -Encoding utf8
