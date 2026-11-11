@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Saqib Ansari's responsive profile card project demonstrating CSS box model, display, overflow, and positioning.">
+  <title>Mohammad Saqib Ansari | Profile Card</title>
+  <style>
+    /* 1. Design tokens and global box model */
+    :root {
+      --bg: #0d1511;
+      --surface: #15221a;
+      --surface-light: #1d2d23;
+      --text: #f0f5ef;
+      --muted: #a8b8aa;
+      --accent: #a3e635;
+      --accent-dark: #7eae25;
+      --border: rgba(220, 240, 220, 0.13);
+      --radius: 22px;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 85% 5%, rgba(163, 230, 53, 0.09), transparent 25rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .container {
+      width: min(1100px, calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    /* 2. Sticky navigation: position: sticky */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 21, 17, 0.9);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+
+    .navbar {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .brand span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* 3. Hero: layered shapes use position and z-index */
+    .hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      align-items: center;
+      gap: 34px;
+      min-height: 390px;
+      margin-top: 38px;
+      padding: clamp(28px, 6vw, 64px);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      background: linear-gradient(135deg, #1a2a20, #111b15);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-content { position: relative; z-index: 3; }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 12px;
+      border: 1px solid rgba(163, 230, 53, 0.35);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 650px;
+      margin-bottom: 14px;
+      font-size: clamp(2.3rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .hero-copy {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--accent); color: #14200e; border-color: var(--accent); }
+    .button-secondary { background: rgba(255,255,255,0.04); }
+
+    .hero-art {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      min-height: 230px;
+    }
+
+    .avatar {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: clamp(150px, 22vw, 220px);
+      aspect-ratio: 1;
+      border: 8px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      background: linear-gradient(145deg, #a3e635, #527d24);
+      color: #15210e;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 900;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    .shape {
+      position: absolute;
+      z-index: 1;
+      border: 1px solid rgba(163,230,53,0.32);
+      border-radius: 28px;
+      transform: rotate(35deg);
+    }
+
+    .shape-one { width: 190px; height: 190px; background: rgba(163,230,53,0.08); }
+    .shape-two { width: 250px; height: 250px; border-radius: 50%; transform: translate(25px, -10px); }
+    .shape-three { width: 70px; height: 70px; right: 5%; top: 10%; background: rgba(163,230,53,0.18); }
+
+    /* 4. Display: grid, flex, block and inline-block */
+    .section { padding-block: 76px 10px; }
+    .section-heading { margin-bottom: 24px; }
+    .section-heading p { color: var(--muted); margin-top: 5px; }
+    h2 { font-size: clamp(1.6rem, 4vw, 2.25rem); letter-spacing: -0.035em; }
+    h3 { font-size: 1.15rem; margin-bottom: 8px; }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .info-card {
+      min-height: 185px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .info-card p { color: var(--muted); }
+    .info-card.light { background: #e9f1e5; color: #182318; }
+    .info-card.light p { color: #526052; }
+    .info-card.dark { background: #080d0a; }
+    .info-card.accent { background: var(--accent); color: #17220f; }
+    .info-card.accent p { color: #344522; }
+
+    .tag {
+      display: inline-block;
+      margin: 12px 6px 0 0;
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
+
+    /* 5. Overflow: bounded scrollable notes panel */
+    .notes-panel {
+      max-height: 155px;
+      overflow: auto;
+      padding: 20px 22px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      color: var(--muted);
+      scrollbar-color: var(--accent-dark) var(--surface);
+    }
+
+    .notes-panel p + p { margin-top: 14px; }
+
+    /* 6. Horizontal overflow stays inside its own panel */
+    .tile-window {
+      overflow-x: auto;
+      padding: 4px 2px 16px;
+      scrollbar-color: var(--accent-dark) var(--surface);
+    }
+
+    .tile-track {
+      display: flex;
+      width: max-content;
+      gap: 14px;
+    }
+
+    .tile {
+      display: grid;
+      place-items: center;
+      width: 170px;
+      min-height: 105px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface-light);
+      color: var(--text);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* 7. Box-model illustration */
+    .box-model-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .box-diagram {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .margin-layer {
+      padding: 18px;
+      border: 2px dashed #e6b85c;
+      background: rgba(230,184,92,0.08);
+      text-align: center;
+      color: #f0d69e;
+      font-size: 0.85rem;
+    }
+
+    .border-layer {
+      padding: 14px;
+      border: 8px solid #8b9a8d;
+      background: rgba(139,154,141,0.12);
+      color: var(--text);
+    }
+
+    .padding-layer {
+      padding: 18px;
+      background: rgba(163,230,53,0.14);
+      color: var(--accent);
+    }
+
+    .content-layer {
+      display: grid;
+      place-items: center;
+      min-height: 72px;
+      background: #a3e635;
+      color: #17220f;
+      font-weight: 800;
+    }
+
+    .legend { display: grid; gap: 10px; color: var(--muted); }
+    .legend strong { color: var(--text); }
+
+    /* 8. Fixed back-to-top button */
+    .back-to-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 200;
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #17220f;
+      font-size: 1.3rem;
+      font-weight: 900;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding: 26px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* 9. Responsive tablet and mobile layouts */
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .hero-copy { margin-inline: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-art { min-height: 210px; }
+      .card-grid { grid-template-columns: 1fr 1fr; }
+      .box-model-layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .container { width: min(100% - 28px, 1100px); }
+      .navbar { min-height: 64px; flex-wrap: wrap; padding-block: 12px; }
+      .nav-links { gap: 13px; font-size: 0.82rem; }
+      .hero { margin-top: 20px; padding: 28px 20px; border-radius: 22px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .section { padding-top: 58px; }
+      .back-to-top { right: 14px; bottom: 14px; }
+    }
+  </style>
+</head>
+<body id="top">
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+     <a class="brand" href="#top">MSA<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#skills">Interests</a></li>
+        <li><a href="#box-model">Box Model</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="profile">
+      <div class="hero-content">
+        <span class="eyebrow">Student • Web Developer</span>
+        <h1>Hello, I'm <span>Mohammad Saqib Ansari.</span></h1>
+        <p class="hero-copy">
+          I am a computer science student learning to build clean, useful websites.
+          I enjoy turning ideas into simple digital experiences and improving one project at a time.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#skills">Explore my profile</a>
+          <a class="button button-secondary" href="https://github.com/SaqibAnsari05" target="_blank" rel="noopener noreferrer">Visit GitHub ↗</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Decorative profile initials">
+        <div class="shape shape-one"></div>
+        <div class="shape shape-two"></div>
+        <div class="shape shape-three"></div>
+        <div class="avatar">SA</div>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="section-heading">
+        <h2>A little about me</h2>
+        <p>Three quick facts about what I do and what I am learning.</p>
+      </div>
+      <div class="card-grid">
+        <article class="info-card light">
+          <h3>01 / Student</h3>
+          <p>Currently studying computer science and strengthening my programming fundamentals.</p>
+        </article>
+        <article class="info-card dark">
+          <h3>02 / Web Development</h3>
+          <p>Learning HTML, CSS, JavaScript and how to build responsive layouts.</p>
+        </article>
+        <article class="info-card accent">
+          <h3>03 / Creative Work</h3>
+          <p>Interested in video editing, storytelling, design and content creation.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Current interests</h2>
+        <p>Some topics I am exploring right now.</p>
+      </div>
+      <div>
+        <span class="tag">HTML & CSS</span>
+        <span class="tag">Java</span>
+        <span class="tag">Problem Solving</span>
+        <span class="tag">UI Design</span>
+        <span class="tag">Video Editing</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Learning notes</h2>
+        <p>This panel has a fixed maximum height. Scroll inside it to read the full notes.</p>
+      </div>
+      <div class="notes-panel" tabindex="0" aria-label="Scrollable learning notes">
+        <p><strong>HTML:</strong> HTML gives a webpage its structure. Semantic elements such as header, nav, main, section and footer make the page easier to understand.</p>
+        <p><strong>CSS:</strong> CSS controls the appearance and layout. Flexbox and Grid help arrange elements, while media queries adapt the layout to smaller screens.</p>
+        <p><strong>Box model:</strong> Every element can be understood as content surrounded by padding, border and margin. The universal box-sizing rule makes sizing easier to manage.</p>
+        <p><strong>Positioning:</strong> Static is the normal flow. Relative keeps an element in the flow but allows offsets. Absolute positions an element relative to a positioned ancestor. Sticky and fixed are useful for navigation and floating controls.</p>
+        <p><strong>Overflow:</strong> Overflow controls what happens when content is larger than its container. Auto adds scrolling when needed; hidden clips extra content.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Things I am exploring</h2>
+        <p>Scroll horizontally inside this strip. The page itself should not become wider.</p>
+      </div>
+      <div class="tile-window" tabindex="0" aria-label="Horizontally scrollable interest tiles">
+        <div class="tile-track">
+          <div class="tile">Frontend Basics</div>
+          <div class="tile">Responsive Design</div>
+          <div class="tile">Java Programming</div>
+          <div class="tile">Git & GitHub</div>
+          <div class="tile">Creative Editing</div>
+          <div class="tile">UI Experiments</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="box-model">
+      <div class="section-heading">
+        <h2>CSS Box Model</h2>
+        <p>An annotated visual of the four layers around an element.</p>
+      </div>
+      <div class="box-model-layout">
+        <div class="box-diagram" aria-label="Box model diagram">
+          <div class="margin-layer">
+            MARGIN
+            <div class="border-layer">
+              BORDER
+              <div class="padding-layer">
+                PADDING
+                <div class="content-layer">CONTENT</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="legend">
+          <p><strong>1. Content:</strong> The actual text, image or other content inside the element.</p>
+          <p><strong>2. Padding:</strong> Space between the content and the border.</p>
+          <p><strong>3. Border:</strong> The line surrounding the padding and content.</p>
+          <p><strong>4. Margin:</strong> Space outside the border that separates elements.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Made by Mohammad Saqib Ansari · Day 06 Web Development Assignment</div>
+  </footer>
+
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>
